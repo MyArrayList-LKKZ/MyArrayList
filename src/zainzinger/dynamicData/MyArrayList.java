@@ -159,5 +159,52 @@ public class MyArrayList {
 			return false;
 		}
 	}
+	
+	/**
+	 * Die Liste  wird als Arrayzurück gegeben
+	 * @return Die Liste als Array.
+	 */
+	public Object[] toArray(){
+		return this.array;
+	}
+	
+	
+	/**
+	 * Löscht Bereiche an Einträgen aus einer Liste. 
+	 * 
+	 * @param fromIndex der kleinere Index
+	 * @param toIndex Der größere Index
+	 * @throw Falls einer der übergebene Index kleiner 0 oder größer 0 als die Länge der Liste ist
+	 *  	  oder der kleinere Index größer als der Größere ist, kommt es zu einer Fehlermeldung 
+	 */
+	protected void removeRange(int fromIndex, int toIndex) throws IndexOutOfBoundsException{
+		if(fromIndex < 0 || fromIndex > this.index || toIndex < 0 || toIndex > this.index || fromIndex > toIndex){
+			IndexOutOfBoundsException f = new IndexOutOfBoundsException("Index: "+index+", Size: "+this.index);
+			throw f;
+		}else{
+			for(int i=fromIndex;i<=toIndex;i++){
+				this.remove(i);
+			}
+		}
+	}
+	private void remove(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 
+	/**
+	 * Gibt die erste Stelle(Index) eines gesuchten Objektes zurück
+	 *                          
+	 * @param o Das gesuchte Objekt
+	 * @return Der Index des gesuchten Objekts
+	 */
+	public int indexOf(Object o){
+		for(int i=0;i<this.index;i++){
+			if(o.equals(this.get(i))){
+				return i;
+		}
+	}
+		return -1;
+	}
 }
+
