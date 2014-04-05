@@ -6,7 +6,7 @@ package zainzinger.dynamicData;
  * @author clehner
  * @author pkronowetter
  * @author skreutzer
- * @version 2014-03-21
+ * @version 2014-04-05
  */
 public class MyArrayList {
 	private Object[] array;
@@ -51,7 +51,7 @@ public class MyArrayList {
 	 * FŸgt das Ÿbergebene Element an der spezifischen Stellen der Liste ein.
 	 * @param index 
 	 * @param element 
-	 * @throw Falls der Ÿbergebene Index kleiner 0 oder grš§er als die LŠnge der Liste ist kommt es zu einer Fehlermeldung
+	 * @throw Falls der Übergebene Index kleiner 0 oder größer als die Länge der Liste ist kommt es zu einer Fehlermeldung
 	 */
 	public void add(int index, Object element) throws IndexOutOfBoundsException{
 		if(index < 0 || index > this.index){
@@ -187,10 +187,6 @@ public class MyArrayList {
 			}
 		}
 	}
-	private void remove(int i) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	/**
 	 * Gibt die erste Stelle(Index) eines gesuchten Objektes zurück
@@ -205,6 +201,69 @@ public class MyArrayList {
 		}
 	}
 		return -1;
+	}
+	
+	public void trimToSize(){
+		Object[] zw = new Object[this.index];//Erzeugt eine Zwischenvariable
+		for(int i = 0; i < this.index; ++i){
+			zw[i] = this.get(i);//Speichert die Objekte in die Zwischenvariable
+		}
+		this.array = new Object[this.index];//Verkleinern der Liste
+		for(int i = 0; i < zw.length; ++i){
+			this.array[i] = zw[i];//Speichern der Objekte von der Zwischenvariable in die Liste.
+		}
+	}
+	
+	/**
+	 * Ersetzt das Objekt an einem bestimmten Index durch ein neues.
+	 * @param index der Index an welcher Position das Element erzetzt werden soll
+	 * @param element das neue Element welches hinzugefügt wird
+	 * @throw Falls der übergebene Index kleiner 0 oder größer als die Länge der Liste ist kommt es zu einer Fehlermeldung
+	 * @return das Element was vorher in der Liste stand
+	 */
+	public Object set(int index, Object element) throws IndexOutOfBoundsException{
+		if(index < 0 || index > this.index){//wenn der Parameter index kleiner 0 oder größer als die Size der Liste ist
+			IndexOutOfBoundsException f = new IndexOutOfBoundsException("Index: "+index+", Size: "+this.index);//erzeugt ein Objekt welche eine Fehlermeldung liefert
+			throw f;//wirft die Exception
+		}else{// falls sich der übergebene Index im erlaubten Rahmen befindet
+			Object o = get(index);//Speichert den alten Wert.
+			array[index] = element;//Ersetzt den alten Wert durch den neuen
+			return o;//Gibt den alten Wert zurück
+		}
+	}
+	
+	/**
+	 * Löscht das Element an der spezifischen Stellen der Liste ein.
+	 * Falls das Elemente am Anfang oder in der Mitte der Liste gelöscht wird werden die nachfolgenden Indexes um 1 verringert.
+	 * @param index der Index an welcher Position das Element gelöscht werden soll.
+	 * @throw Falls der übergebene Index kleiner 0 oder größer als die Länge der Liste ist kommt es zu einer Fehlermeldung
+	 * @return Das Obejkt, welches gelöscht wurde.
+	 */
+	public Object remove(int index) throws IndexOutOfBoundsException{
+		if(index < 0 || index > this.index){//wenn der Parameter index kleiner 0 oder größer als die Size der Liste ist
+			IndexOutOfBoundsException f = new IndexOutOfBoundsException("Index: "+index+", Size: "+this.index);//erzeugt ein Objekt welche eine Fehlermeldung liefert
+			throw f;//wirft eine Exception
+		}else{// falls sich der übergebene Index im erlaubten Rahmen befindet
+			Object o = this.get(index);
+			Object[] zw = new Object[this.array.length];//Speichert die Liste in eine Zwischenvariable
+			for(int i = 0; i < this.array.length; i++){
+				zw[i] = this.get(i);
+			}
+			this.array = new Object[this.array.length-1]; //Array verkleinern
+			int x = 0;
+			for(int i = 0; i < zw.length; i++){
+				if(i != index){
+					this.array[x] = zw[i]; //Array wieder füllen
+				}
+				if(this.array.length > 0 && this.array.length > x){ //Das gelöschte Element wird nicht wieder eingefügt
+					if(i != index){
+						++x;
+					}
+				}
+			}
+			this.index--;
+			return o;//Gibt das gewünschte Objekt zurück
+		}	
 	}
 }
 
