@@ -265,5 +265,41 @@ public class MyArrayList {
 			return o;//Gibt das gew¸nschte Objekt zur¸ck
 		}	
 	}
+	
+	/**
+	 * Gibt die aktuelle anzahl an Einträgen zurück.
+	 * @return Die anzahl der Einträge
+	 */
+	public int size(){
+		return this.index;//Gibt die Anzahl der Eintrage zurück
+	}
+	
+	/**
+	 * Löscht einen bestimmten Eintrag aus der Liste.
+	 * @param o Das Objekt, welches gelöscht werden soll
+	 * @return Ob das Objekt erfolgreich gelöscht wurde
+	 */
+	public boolean remove(Object o){
+		if(this.contains(o)){//Kontrolliert, ob es das Objekt gibt
+			remove(this.indexOf(o));//Löscht das Objekt
+			return true;
+		}else{
+			return false;//Das Objekt wurde nicht gelöscht
+		}
+	}
+	
+	/**
+	 * Gibt den letzten Index eines gesuchten Objekts zurück
+	 * @param o Das gesuchte Objekt
+	 * @return Der Index des gesuchten Objekts
+	 */
+	public int lastIndexOf(Object o){
+		for(int i=this.index-1;i>=0;i--){//Geht alle Listeneinträge durch und sucht nach dem Objekt
+			if(o.equals(this.get(i))){//Vergleicht das Objekt am aktuellen Index und das gesuchte Objekt
+				return i;//Gibt den Index zurück
+			}
+		}
+		return -1;//Das Objekt wurde nicht gefunden
+	}
 }
 
